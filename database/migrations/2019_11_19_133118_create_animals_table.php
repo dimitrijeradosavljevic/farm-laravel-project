@@ -17,6 +17,7 @@ class CreateAnimalsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('father_id')->nullable();
             $table->unsignedBigInteger('mother_id')->nullable();
+            $table->boolean('gender');
             $table->integer('id_number')->unique();
             $table->integer('identification_number')->unique();   //maticni_broj
             $table->string('hb')->unique();
@@ -36,6 +37,7 @@ class CreateAnimalsTable extends Migration
             $table->string('birth_type');   //tip rodjenja
             $table->timestamps();
 
+            $table->foreign('owner_id')->references('id')->on('owners')->onDelete('cascade');
             $table->foreign('mother_id')->references('id')
                 ->on('animals');
 

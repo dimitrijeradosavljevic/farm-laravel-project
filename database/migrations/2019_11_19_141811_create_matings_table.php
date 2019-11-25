@@ -16,10 +16,13 @@ class CreateMatingsTable extends Migration
         Schema::create('matings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('date');
-            $table->bigInteger('animal_id');
-            $table->bigInteger('partner_id');
-            $table->bigInteger('birth_id');
+            $table->unsignedBigInteger('male_id');
+            $table->unsignedBigInteger('female_id');
+            $table->unsignedBigInteger('birth_id')->nullable();
             $table->timestamps();
+
+//            $table->foreign('male_id')->references('id')->on('animals');
+//            $table->foreign('female_id')->references('id')->on('animals');
         });
     }
 

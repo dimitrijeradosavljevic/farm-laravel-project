@@ -6,13 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Birth extends Model
 {
-    protected $fillable = [
-    	'date', 'birth_number', 'males', 'females', 'passed', 'mummified', 'animal_id'
-    ];
+    protected $guarded = [];
 
     public function matings()
     {
     	return $this->hasMany(Mating::class);
+    }
+
+    public function exclusion()
+    {
+    	return $this->hasOne(Exclusion::class);
+    }
+
+    public function animal()
+    {
+    	return $this->belongsTo(Animal::class);
     }
 
 }

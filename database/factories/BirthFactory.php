@@ -13,7 +13,7 @@ $factory->define(Birth::class, function (Faker $faker) {
         'females' => $faker->numberBetween(1, 3),
         'passed' => $faker->numberBetween(0, 5),
         'mummified' => $faker->numberBetween(0, 2),
-        'animal_id' => $faker->numberBetween(1, 10)
-
+        'animal_id' => $faker->numberBetween(1, 10),
+        'birth_certificate' => $faker->randomNumber(6),
     ];
 });

@@ -15,16 +15,19 @@ class CreateBirthsTable extends Migration
     {
         Schema::create('births', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('animal_id');
+            $table->unsignedBigInteger('animal_id');
             $table->date('date');
             $table->integer('birth_number');
             $table->integer('males');
             $table->integer('females');
             $table->integer('passed');
             $table->integer('mummified');
-            $table->string('bitch_certificate');
+            $table->string('birth_certificate');//bitch_certificate?
             $table->timestamps();
+
+            $table->foreign('animal_id')->references('id')->on('animals')->onDelete('cascade');
         });
+
     }
 
     /**
