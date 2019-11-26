@@ -17,6 +17,7 @@ class CreateAnimalsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('father_id')->nullable();
             $table->unsignedBigInteger('mother_id')->nullable();
+
             $table->integer('id_number')->unique();
             $table->integer('identification_number')->unique();   //maticni_broj
             $table->string('hb')->unique();
@@ -39,7 +40,11 @@ class CreateAnimalsTable extends Migration
             $table->foreign('mother_id')->references('id')
                 ->on('animals');
 
-            });
+            $table->foreign('father_id')->references('id')
+                ->on('animals');
+
+
+        });
     }   //TODO(1) Too much unique fields?
 
     /**

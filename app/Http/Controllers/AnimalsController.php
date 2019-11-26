@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Animal;
+use App\Animal2;
 use Illuminate\Http\Request;
 
 class AnimalsController extends Controller
 {
-    public function show(Animal $animal)
+    public function show()
     {
-        return view('show', compact('animal'));
+        $regularAnimal = Animal::find(3);
+
+
+
+        return view('show', compact('regularAnimal'));
     }
 }

@@ -13,4 +13,9 @@ class Animal extends Model
     {
         return $this->belongsTo(Animal::class, 'mother_id');
     }
+
+    public function parents()
+    {
+        return $this->belongsToMany(Animal::class, 'animal_parent', 'animal_id', 'parent_id')->with('parents');
+    }
 }
