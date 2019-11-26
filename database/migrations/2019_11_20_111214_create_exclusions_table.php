@@ -23,7 +23,12 @@ class CreateExclusionsTable extends Migration
             $table->double('mother_mark');  //ocena krmace
             $table->unsignedInteger('males_for_breeding');  //odabrano za priplod muskih
             $table->unsignedInteger('females_for_breeding');
+            $table->unsignedBigInteger('animal_id');
+            $table->unsignedBigInteger('birth_id');
             $table->timestamps();
+
+            $table->foreign('animal_id')->references('id')->on('animals');
+            $table->foreign('birth_id')->references('id')->on('births');
         });
     }
 

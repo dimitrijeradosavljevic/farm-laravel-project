@@ -15,5 +15,6 @@ $factory->define(Exclusion::class, function (Faker $faker) {
         'mother_mark' => $faker->numberBetween(5, 10),
         'males_for_breeding' => $faker->numberBetween(5, 8),
         'females_for_breeding' => $faker->numberBetween(5, 8),
+        'birth_id' => $faker->randomDigit,
     ];
 });

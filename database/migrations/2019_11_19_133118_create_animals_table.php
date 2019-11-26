@@ -37,6 +37,7 @@ class CreateAnimalsTable extends Migration
             $table->string('birth_type');   //tip rodjenja
             $table->timestamps();
 
+            $table->foreign('owner_id')->references('id')->on('owners')->onDelete('cascade');
             $table->foreign('mother_id')->references('id')
                 ->on('animals');
 

@@ -5,15 +5,27 @@ namespace App\Http\Controllers;
 use App\Animal;
 use App\Animal2;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AnimalsController extends Controller
 {
-    public function show()
+
+    public function show(Animal $animal)
     {
-        $regularAnimal = Animal::find(3);
+            $this->authorize('modify', $animal);
+
+            return view('animals.show', compact('animal'));
 
 
-
-        return view('show', compact('regularAnimal'));
     }
+
+    public function edit(Animal $animal)
+    {
+            $this->authorize('modify', $animal);
+
+            return view('animals.edit', compact('animal'));
+
+    }
+
+
 }
