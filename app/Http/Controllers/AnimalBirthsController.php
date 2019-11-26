@@ -8,10 +8,8 @@ use App\Animal;
 
 class AnimalBirthsController extends Controller
 {
-    public function store(Request $request, Animal $animal)
+    public function store(Request $request)
     {
-        $this->authorize('modify', $animal);
-
     	$attributes = $request->validate([
     		'date' => ['required', 'date'],
     		'birth_number' => ['numeric', 'required'],

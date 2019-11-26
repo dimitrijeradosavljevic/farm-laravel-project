@@ -49,45 +49,16 @@ class Animal extends Model{
 	public function getGenderNounAttribute()
 	{
 		if($this->gender == 1 && $this->breed->species->name == 'Svinja'){
-			return 'Krmaca';
-		}elseif($this->gender == 0 && $this->breed->species->name == 'Svinja'){
 			return 'Nerast';
+		}elseif($this->gender == 0 && $this->breed->species->name == 'Svinja'){
+			return 'Krmaca';
 		}
 	}
 
 
     public function mother()
     {
-
         return $this->belongsTo(Animal::class, 'mother_id');
-
-    }
-
-
-    public function father()
-    {
-
-    	return Animal::find($this->father_id);
-
-    }
-
-
-    public function getMothers($count)
-    {
-    	 $i = 1;
-    	 $mother = $this->mother();
-    	 $mothers[$i] = $mother;
-
-    	while($i < $count){
-    		$i++;
-    		$mothers[$i] = $mother->mother();
-
-    	}
-
-    	$father = $this->father();
-
-
-    	return $mothers;
     }
 
 }

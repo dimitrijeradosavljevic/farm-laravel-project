@@ -11100,3 +11100,9 @@ a.text-dark:focus {
   }
 }
 
+.custom-delete {
+  position: relative;
+  top: -37px;
+  left: 80px;
+}
+
