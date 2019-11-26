@@ -18,6 +18,9 @@ class CreateBreedsTable extends Migration
             $table->string('name');
             $table->unsignedBigInteger('species_id');
             $table->timestamps();
+
+            $table->foreign('species_id')->references('id')
+                ->on('species')->onDelete('cascade');
         });
     }
 

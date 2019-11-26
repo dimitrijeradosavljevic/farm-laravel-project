@@ -27,5 +27,8 @@ class AnimalsController extends Controller
 
     }
 
-
+    public function create()
+    {
+        return view('animals.create');
+    }
 }

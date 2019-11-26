@@ -25,8 +25,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::patch('/owners/{owner}', 'OwnersController@update')->name('owners.update');
     Route::delete('/owners/{owner}', 'OwnersController@destroy')->name('owners.destroy');
 
-    Route::get('/animals/{animal}', 'AnimalsController@show')->name('animals.show')->middleware('auth');
-    Route::get('/animals/{animal}/edit', 'AnimalsController@edit')->name('animals.edit')->middleware('auth');
+    Route::get('/animals/create', 'AnimalsController@create')->name('animals.create');
+    Route::get('/animals/{animal}', 'AnimalsController@show')->name('animals.show');
+    Route::get('/animals/{animal}/edit', 'AnimalsController@edit')->name('animals.edit');
 
 
     Route::post('/animals/{animal}/matings', 'AnimalMatingsController@store')->name('matings.store');

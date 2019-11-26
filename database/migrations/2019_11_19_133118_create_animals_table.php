@@ -23,7 +23,8 @@ class CreateAnimalsTable extends Migration
             $table->string('hb')->unique();
             $table->string('rb')->unique();
             $table->date('birth_day');
-            $table->integer('breed_id');
+            $table->unsignedBigInteger('breed_id');
+            $table->boolean('gender');  // true - musko / false - zensko
             $table->unsignedBigInteger('user_id');  //Odgajivac
             $table->unsignedBigInteger('owner_id');
             $table->date('exclusion_date');
@@ -37,12 +38,17 @@ class CreateAnimalsTable extends Migration
             $table->string('birth_type');   //tip rodjenja
             $table->timestamps();
 
-            $table->foreign('owner_id')->references('id')->on('owners')->onDelete('cascade');
+            $table->foreign('owner_id')->references('id')
+                ->on('owners')->onDelete('cascade');
+
             $table->foreign('mother_id')->references('id')
                 ->on('animals');
 
             $table->foreign('father_id')->references('id')
                 ->on('animals');
+
+            $table->foreign('breed_id')->references('id')
+                ->on('breeds')->onDelete('cascade');
 
 
         });
