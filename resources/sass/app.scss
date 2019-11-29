@@ -11,5 +11,129 @@
     position: relative;
     top: -37px;
     left: 80px;
+}
 
+.custom-col {
+    width: 95px;
+    min-height: 25px;
+    border: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-col-head {
+    font-weight: 600;
+    min-height: 48px;
+}
+
+.table-holder {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.col-pair {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.sub-table {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.sub-table-title {
+    background-color: #ad0f0f;
+    text-align: center;
+    border: 1px solid #000;
+}
+
+.sub-table-title > a {
+    color: #fff;
+    font-width: bold;
+}
+
+.sub-table-body {
+    display: flex;
+}
+
+.male-table > .sub-table {
+    display: inline-block;
+}
+
+.links-holder {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.main-nav {
+    //position: absolute;
+    width: 100%;
+    padding: 30px 0;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.front-page-image {
+    width: 100%;
+    height: 30vw;
+    background-image: url(/images/agriculture-front.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.divider {
+    height: 100px;
+}
+
+.main-nav > a {
+    color: #fff;
+}
+
+.alert-danger > ul {
+    margin-bottom: 0;
+}
+
+.index-listing > .sub-table {
+    flex-direction: row;
+}
+
+.index-listing .sub-table-body {
+    margin: 5px 5px;
+}
+
+.family-tree-holder {
+    display: flex;
+}
+
+.row-full {
+    height: 200px;
+    width: 100px;
+}
+
+.row-half {
+    height: 100px;
+    width: 100px;
+}
+
+.row-quarter {
+    height: 50px;
+    width: 100px;
+}
+
+.full-row-holder {
+    display: flex;
+    flex-direction: column;
+}
+
+.half-row-holder {
+    display: flex;
+    flex-direction: column;
+}
+
+.quarter-row-holder {
+    display: flex;
+    flex-direction: column;
 }

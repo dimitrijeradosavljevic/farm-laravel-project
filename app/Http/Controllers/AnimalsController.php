@@ -7,14 +7,19 @@ use App\Animal2;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
+use App\Mating;
+use Carbon\Carbon;
+
 class AnimalsController extends Controller
 {
 
     public function show(Animal $animal)
     {
             $this->authorize('modify', $animal);
+            $births = $animal->births->load('matings', 'exclusion', 'animal.matings');
 
-            return view('animals.show', compact('animal'));
+
+            return view('animals.show', compact('animal', 'births'));
 
 
     }

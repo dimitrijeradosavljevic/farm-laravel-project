@@ -14,4 +14,5 @@ class AnimalPolicy
     {
         return $user->id == $animal->user_id;
     }
+
 }

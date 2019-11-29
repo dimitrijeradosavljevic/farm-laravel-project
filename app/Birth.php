@@ -23,4 +23,14 @@ class Birth extends Model
     	return $this->belongsTo(Animal::class);
     }
 
+    public static function findBirth($birth_certificate)
+    {
+        if($birth_certificate){
+            $birth = Birth::where('birth_certificate', $birth_certificate)->first('id');
+            if($birth){
+                return $birth->id;
+            }
+        }
+    }
+
 }

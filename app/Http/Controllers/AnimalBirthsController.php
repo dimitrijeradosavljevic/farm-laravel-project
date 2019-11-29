@@ -8,7 +8,28 @@ use App\Animal;
 
 class AnimalBirthsController extends Controller
 {
-    public function store(Request $request)
+
+    public function index(Animal $animal)
+    {
+        $this->authorize('modify', $animal);
+
+        return view('births.index', compact('animal'));
+    }
+
+    public function create(Animal $animal)
+    {
+        $this->authorize('modify', $animal);
+
+        //If the animal is male, don't allow access
+        if($animal->gender !== 0){
+            return redirect()->back();
+        }
+
+        return view('births.create', compact('animal'));
+    }
+
+
+    public function store(Animal $animal, Request $request)
     {
     	$attributes = $request->validate([
     		'date' => ['required', 'date'],
@@ -21,15 +42,27 @@ class AnimalBirthsController extends Controller
 		]);
     	$attributes['animal_id'] = $animal->id;
 
-    	Birth::create($attributes);
+    	$created = Birth::create($attributes);
 
-    	return redirect()->back();
+    	//Check if birth persisting was successful
+    	if($created){
+    	    session()->flash('success', 'Uspesno ste dodali prasenje');
+        }else{
+    	    session()->flash('error', 'Doslo je do greske. Prasenje nije dodato');
+        }
+
+    	return redirect(route('animals.show', $animal->id));
 
     }
 
     public function edit(Animal $animal)
     {
         $this->authorize('modify', $animal);
+
+        //If the animal is male, don't allow access
+        if($animal->gender !== 0){
+            return redirect()->back();
+        }
 
         return view('births.edit', compact('animal'));
     }
@@ -49,7 +82,14 @@ class AnimalBirthsController extends Controller
         ]);
         $attributes['animal_id'] = $animal->id;
 
-        $birth->update($attributes);
+        $updated = $birth->update($attributes);
+
+        //Check if birth was updated
+        if($updated){
+            session()->flash('success', 'Uspesno ste promenili prasenje');
+        }else{
+            session()->flash('error', 'Doslo je do greske. Prasenje nije promenjeno');
+        }
 
         return redirect()->back();
     }

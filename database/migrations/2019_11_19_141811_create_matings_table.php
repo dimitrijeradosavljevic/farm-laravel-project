@@ -21,8 +21,8 @@ class CreateMatingsTable extends Migration
             $table->unsignedBigInteger('birth_id')->nullable();
             $table->timestamps();
 
-//            $table->foreign('male_id')->references('id')->on('animals');
-//            $table->foreign('female_id')->references('id')->on('animals');
+            $table->foreign('male_id')->references('id')->on('animals')->onDelete('cascade');
+            $table->foreign('female_id')->references('id')->on('animals')->onDelete('cascade');
         });
     }
 

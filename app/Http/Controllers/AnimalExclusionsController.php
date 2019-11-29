@@ -9,6 +9,28 @@ use App\Animal;
 
 class AnimalExclusionsController extends Controller
 {
+
+    public function index(Animal $animal)
+    {
+        $this->authorize('modify', $animal);
+
+        $exclusions = $animal->exclusions->load('birth');
+        return view('exclusions.index', compact('exclusions', 'animal'));
+    }
+
+    public function create(Animal $animal)
+    {
+
+        $this->authorize('modify', $animal);
+
+        //If the animal is male, don't allow access
+        if($animal->gender !== 0){
+            return redirect()->back();
+        }
+
+        return view('exclusions.create', compact('animal'));
+    }
+
     public function store(Request $request, Animal $animal)
     {
         $this->authorize('modify', $animal);
@@ -29,20 +51,39 @@ class AnimalExclusionsController extends Controller
 
     	//Find birth based on certificate
     	if($request->has('birth_certificate')){
-    		$birth = Birth::where('birth_certificate', $request->birth_certificate)->first('id');
+    		$birth = Birth::findBirth($request->birth_certificate);
+    	    if($birth){
+                $attributes['birth_id'] = $birth;
+            }else{
+    	        session()->flash('error', 'Nije pronadjeno rodjenje sa cerifikatom koji ste uneli.');
+    	        return redirect()->back();
+
+            }
     	}
-    	$attributes['birth_id'] = $birth->id;
 
-    	Exclusion::create($attributes);
+    	$created = Exclusion::create($attributes);
 
-    	return redirect()->back();
+    	if($created){
+            session()->flash('success', 'Uspesno ste dodali zalucenje');
+        }else{
+    	    session()->flash('error', 'Doslo je do greske. Zalucenje nije dodato');
+        }
+
+    	return redirect(route('animals.show', $animal->id));
     }
 
     public function edit(Animal $animal)
     {
         $this->authorize('modify', $animal);
 
-        return view('exclusions.edit', compact('animal'));
+        //If the animal is male, don't allow access
+        if($animal->gender !== 0){
+            return redirect()->back();
+        }
+
+        $exclusions = $animal->exclusions->load('birth');
+
+        return view('exclusions.edit', compact('animal','exclusions'));
     }
 
     public function update(Request $request, Animal $animal, Exclusion $exclusion)
@@ -65,12 +106,21 @@ class AnimalExclusionsController extends Controller
 
         //Find birth based on certificate
         if($request->has('birth_certificate')){
-            $birth = Birth::where('birth_certificate', $request->birth_certificate)->first('id');
+            $birth = Birth::findBirth($request->birth_certificate);
         }
-        $attributes['birth_id'] = $birth->id;
+        if($birth){
+            $attributes['birth_id'] = $birth;
+        }else{
+            session()->flash('error', 'Nije pronadjeno rodjenje sa cerifikatom koji ste uneli. Zbog toga ce polje ostati prazno, mozete ga naknadno promeniti');
+        }
+        $updated = $exclusion->update($attributes);
 
-        $exclusion->update($attributes);
 
+        if($updated){
+            session()->flash('success', 'Uspesno ste promenili zalucenje');
+        }else{
+            session()->flash('error', 'Doslo je do greske. Zalucenje nije promenjeno');
+        }
         return redirect()->back();
     }
 

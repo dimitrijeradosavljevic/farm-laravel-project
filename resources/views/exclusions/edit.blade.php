@@ -4,7 +4,10 @@
 
 	<h1>Ovde mozete promeniti zalucenja</h1>
 
-	@foreach($animal->exclusions as $exclusion)
+    @include("partials.errors")
+    @include("partials.sessions")
+
+	@foreach($exclusions as $exclusion)
 
         <form method="POST" action="{{route('exclusions.update', [$animal->id, $exclusion->id])}}">
 			@csrf

@@ -27,7 +27,7 @@ class CreateExclusionsTable extends Migration
             $table->unsignedBigInteger('birth_id');
             $table->timestamps();
 
-            $table->foreign('animal_id')->references('id')->on('animals');
+            $table->foreign('animal_id')->references('id')->on('animals')->onDelete('cascade');
             $table->foreign('birth_id')->references('id')->on('births');
         });
     }

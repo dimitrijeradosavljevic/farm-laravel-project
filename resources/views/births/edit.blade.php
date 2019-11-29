@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-	    <h1>Ovde mozete promeniti prasenja</h1>
+	    <h1 class="text-center">Ovde mozete promeniti prasenja</h1>
 
         @include('partials.errors')
-
+        @include('partials.sessions')
 
         @foreach($animal->births as $birth)
 

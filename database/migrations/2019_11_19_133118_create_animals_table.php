@@ -41,11 +41,6 @@ class CreateAnimalsTable extends Migration
             $table->foreign('owner_id')->references('id')
                 ->on('owners')->onDelete('cascade');
 
-            $table->foreign('mother_id')->references('id')
-                ->on('animals');
-
-            $table->foreign('father_id')->references('id')
-                ->on('animals');
 
             $table->foreign('breed_id')->references('id')
                 ->on('breeds')->onDelete('cascade');

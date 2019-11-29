@@ -3,23 +3,32 @@
 
 @section('content')
 
-	{{session('animal_not_found')}}
+	{{session(['animal_not_found', 'birth_not_found'])}}
 
     <div class="mating-form mb-4">
 		<h3 class="text-center">Unesi pripust</h3>
 		<form method="POST" action="{{route('matings.store', $animal->id)}}">
 			@csrf
 			<div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="date">Datum pripusta:</label>
                         <input type="date" name="date" class="form-control">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="partner_id">Id broj partnera pripusta:</label>
                         <input type="number" name="partner_id" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Certifikat prasenja</label>
+                        <input type="text" name="birth_certificate" class="form-control birth-certificate">
+                        <div class="alert alert-warning">
+                            <span>Unesite ovo polje samo ukoliko zelite da povezete pripust sa prasenjem</span>
+                        </div>
                     </div>
                 </div>
             </div>
