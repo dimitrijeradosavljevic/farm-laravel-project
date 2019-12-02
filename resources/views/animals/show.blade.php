@@ -69,6 +69,7 @@
         </div>
 
 
+
 <h3>Welcome to show animal</h3>
 <p>ID Broj: {{$animal->id_number}}</p>
 <p>Selekcijska markica: {{$animal->selection_mark}}</p>
@@ -95,7 +96,6 @@
         @include('animals.partials.matings-table')
     </div>
 @endif
-
 
 
 @endsection

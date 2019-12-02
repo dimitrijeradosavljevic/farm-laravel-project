@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @extends('layouts.app')
 
 @section('before-content')
@@ -27,3 +28,6 @@
         </div>
     </div>
 @endsection
+
+@extends('layout')
+
