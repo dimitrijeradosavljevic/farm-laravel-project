@@ -15,15 +15,9 @@ class AnimalMatingsController extends Controller
     {
         $this->authorize('modify', $animal);
 
-        $mates_coll = $animal->matings;
-        $mates = array();
-        foreach($mates_coll as $mate){
-            $mates[] = $mate->id_number;
-        }
+        $matings = $animal->matings;
 
-        $matings = $animal->getMatings->load('birth');
-
-        return view('matings.index', compact('animal', 'mates', 'matings'));
+        return view('matings.index', compact('animal', 'matings'));
     }
 
     public function create(Animal $animal)
@@ -61,7 +55,7 @@ class AnimalMatingsController extends Controller
     	   $created = $animal->matings()->attach($partner, $attributes);
         }else{
             session()->flash('error', 'Nije pronadjena zivotinja sa ID Brojem koji ste uneli, molimo vas proverite ID Broj ponovo');
-            $created = false;
+            return redirect(route('animals.show', $animal->id));
         }
 
         //Check if creation was successful
@@ -79,12 +73,7 @@ class AnimalMatingsController extends Controller
     {
     	$this->authorize('modify', $animal);
 
-    	//Getting id number of animals that are in matings relationship with current Animal
-    	$mates_coll = $animal->matings;
-        $mates = array();
-        foreach($mates_coll as $mate){
-            $mates[] = $mate->id_number;
-        }
+    	$mates = $animal->matings;
 
         $matings = $animal->getMatings->load('birth');
 
@@ -113,11 +102,7 @@ class AnimalMatingsController extends Controller
 
         $partner = Mating::findPartner($request->partner_id);
         if($partner){
-            if($animal->gender == 0){
-                $attributes['male_id'] = $partner->id;
-            }else{
-                $attributes['female_id'] = $partner->id;
-            }
+            $attributes[$partner['gender']] = $partner['id'];
 
             $updated = $mating->update($attributes);
         }else{
@@ -134,12 +119,18 @@ class AnimalMatingsController extends Controller
         return redirect()->back();
     }
 
-    public function destroy($id)
+    public function destroy(Animal $animal, Mating $mating)
     {
         $this->authorize('modify', $animal);
 
-        $mating = Mating::find($id);
-        $mating->delete();
+        $deleted = $mating->delete();
+
+        if($deleted){
+            session()->flash('success', 'Uspesno ste obrisali pripust');
+        }else{
+            session()->flash('error', 'Doslo je do greske, pripust nije obrisan');
+        }
+
         return redirect()->back();
     }
 }

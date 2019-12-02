@@ -25,7 +25,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>{{$animal->partnerNoun}}</label>
-                    <input type="number" name="partner_id" class="form-control" value="{{$mates[$key]}}">
+                    <input type="number" name="partner_id" class="form-control" value="{{$mates[$key]->id_number}}">
                 </div>
             </div>
 

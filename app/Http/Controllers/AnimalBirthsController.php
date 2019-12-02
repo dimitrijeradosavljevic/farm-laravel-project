@@ -98,7 +98,13 @@ class AnimalBirthsController extends Controller
     {
         $this->authorize('modify', $animal);
 
-        $birth->delete();
+        $deleted = $birth->delete();
+
+        if($deleted){
+            session()->flash('success', 'Uspesno ste obrisali prasenje');
+        }else{
+            session()->flash('error', 'Doslo je do greske, prasenje nije obrisano');
+        }
 
         return redirect()->back();
     }

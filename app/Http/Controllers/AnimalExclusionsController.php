@@ -128,7 +128,13 @@ class AnimalExclusionsController extends Controller
     {
         $this->authorize('modify', $animal);
 
-        $exclusion->delete();
+        $deleted = $exclusion->delete();
+
+        if($deleted){
+            session()->flash('success', 'Uspesno ste obrisali zalucenje');
+        }else{
+            session()->flash('error', 'Doslo je do greske, zalucenje nije obrisano');
+        }
 
         return redirect()->back();
     }

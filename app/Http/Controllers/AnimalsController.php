@@ -18,10 +18,7 @@ class AnimalsController extends Controller
             $this->authorize('modify', $animal);
             $births = $animal->births->load('matings', 'exclusion', 'animal.matings');
 
-
             return view('animals.show', compact('animal', 'births'));
-
-
     }
 
     public function edit(Animal $animal)

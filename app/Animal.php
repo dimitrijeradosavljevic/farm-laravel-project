@@ -20,9 +20,9 @@ class Animal extends Model{
 	{
 		if($this->gender == 1){
 			return $this->belongsToMany(Animal::class, 'matings', 'male_id', 'female_id')->withPivot('date', 'birth_id','id')->orderByDesc('date');
-		}else{
-			return $this->belongsToMany(Animal::class, 'matings', 'female_id', 'male_id')->withPivot('date', 'birth_id','id')->orderByDesc('date');
 		}
+		return $this->belongsToMany(Animal::class, 'matings', 'female_id', 'male_id')->withPivot('date', 'birth_id','id')->orderByDesc('date');
+
 	}
 
 	public function getMatings()
@@ -32,7 +32,6 @@ class Animal extends Model{
         }else{
             return $this->hasMany(Mating::class, 'female_id')->orderByDesc('date');
         }
-        return $this->hasMany(Mating::class);
     }
 
 	public function exclusions()

@@ -9,11 +9,11 @@
         <div class="sub-table-body">
             <div class="col-pair">
                 <span class="custom-col custom-col-head"><span>Datum</span></span>
-                <span class="custom-col">{{$mating->date}}</span>
+                <span class="custom-col">{{$mating->pivot->date}}</span>
             </div>
             <div class="col-pair">
-                <span class="custom-col custom-col-head"><span>Krmaca</span></span>
-                <span class="custom-col">{{$mates[$key]}}</span>
+                <span class="custom-col custom-col-head"><span>{{$animal->partnerNoun}}</span></span>
+                <span class="custom-col">{{$mating->id_number}}</span>
             </div>
         </div>
 

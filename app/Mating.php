@@ -18,9 +18,16 @@ class Mating extends Model
 
     public static function findPartner($partner_id)
     {
-        $animal = Animal::where('id_number', $partner_id)->first('id');
+        $animal = Animal::where('id_number', $partner_id)->first();
         if($animal){
-            return $animal->id;
+
+            $partner['id'] = $animal->id;
+            if($animal->gender){
+                $partner['gender'] = 'male_id';
+            }else{
+                $partner['gender'] = 'female_id';
+            }
+            return $partner;
         }
     }
 

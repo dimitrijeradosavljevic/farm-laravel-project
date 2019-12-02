@@ -32,7 +32,6 @@ class OwnersController extends Controller
     {
         $this->authorize('modify', $owner);
 
-
         return view('owners.edit', compact('owner'));
     }
 
