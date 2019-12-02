@@ -52,7 +52,16 @@ class Animal extends Model{
 
     public function parents()
     {
-        return $this->belongsToMany(Animal::class, 'animal_parent', 'animal_id', 'parent_id')->with('parents');
+        return $this->belongsToMany(Animal::class, 'animal_parent', 'animal_id', 'parent_id')->orderByDesc('gender')->with('parents');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function owner()
+    {
+        return $this->belongsTo(Owner::class);
+    }
 }

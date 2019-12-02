@@ -10,8 +10,7 @@ class UsersController extends Controller
 {
     public function home(User $user)
     {
-        $owners = Owner::with('animals')->get();
-
+        $owners = Owner::where('user_id', auth()->id())->with('animals')->get();
 
     	return view('users.home', compact('owners'));
     }

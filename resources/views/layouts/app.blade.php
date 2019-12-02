@@ -18,6 +18,60 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+
+    <style>
+        .table-container
+        {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .animal
+        {
+            width: 30%;
+        }
+
+        .family
+        {
+            display: flex;
+            flex-direction: column;
+            width: 70%;
+            height: 100%;
+        }
+
+        .parent
+        {
+            height: 50%;
+            display: flex;
+            flex-direction: row;
+            width: 30%;
+        }
+
+        .parent > table
+        {
+            height: 100%;
+        }
+
+        .grandparents
+        {
+            display: flex;
+            flex-direction: column;
+            height: 50%;
+            width: 30%;
+        }
+
+        .container-za-podatke
+        {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+    </style>
+
 </head>
 <body>
     <div id="app">
@@ -72,7 +126,7 @@
             </div>
         </nav>
 
-        <main class="py-4 container">
+        <main class="py-4 container-fluid">
             @yield('content')
         </main>
     </div>
