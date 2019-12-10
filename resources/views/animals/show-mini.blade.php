@@ -1,19 +1,6 @@
-{{--<table class="table border border-dark">--}}
-{{--    <td colspan="{{2*$colspan}}">{{$name}} </td>--}}
-{{--    <td colspan="{{2*$colspan}}">HB/RB {{$animal->hb . '/' . $animal->rb}} </td>--}}
-{{--    <td colspan="{{2*$colspan}}">ID {{$animal->id}} </td>--}}
-{{--    <td colspan="{{2*$colspan}}">TB {{$animal->tatoo_number}} </td>--}}
-{{--</table>--}}
-
-<div class="container-za-podatke">
-    @foreach($animal as $a)
-        <p class="btn-primary">{{$name}}</p>
-        <br>
-        <p>{{'HB/RB     ' . $a->hb . '/' . $a->rb}}</p>
-        <br>
-        <p>{{'ID   ' . $a->id}}</p>
-        <br>
-        <p>{{'TB    ' . $a->tatoo_number}}</p>
-        <br>
-    @endforeach
+<div class="col-{{$colnum}} d-flex flex-column justify-content-between">
+    <div class="row border border-dark bg-secondary flex-grow-1 flex-shrink-1">{{$name}}</div>
+    <div class="row border border-dark flex-grow-1 flex-shrink-1">HB/RB  {{$animal->hb . '/' . $animal->rb}}</div>
+    <div class="row border border-dark flex-grow-1 flex-shrink-1">ID    {{$animal->identification_number}}</div>
+    <div class="row border border-dark flex-grow-1 flex-shrink-1">TB    {{$animal->tattoo_number}}</div>
 </div>

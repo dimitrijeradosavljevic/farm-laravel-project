@@ -42,6 +42,9 @@ class CreateAnimalsTable extends Migration
             $table->foreign('breed_id')->references('id')
                 ->on('breeds')->onDelete('cascade');
 
+            $table->foreign('user_id')->references('id')
+                ->on('users')->onDelete('cascade');
+
 
         });
     }   //TODO(1) Too much unique fields?

@@ -38,7 +38,6 @@
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-
 *,
 *::before,
 *::after {
@@ -11171,13 +11170,10 @@ a.text-dark:focus {
 
 .links-holder {
   text-align: center;
-  margin: 20px 0;
 }
 
-.main-nav {
-  width: 100%;
-  padding: 30px 0;
-  background-color: rgba(0, 0, 0, 0.3);
+.links-holder a {
+  margin-bottom: 20px;
 }
 
 .front-page-image {
@@ -11192,8 +11188,8 @@ a.text-dark:focus {
   height: 100px;
 }
 
-.main-nav > a {
-  color: #fff;
+.main-nav ul {
+  list-style: none;
 }
 
 .alert-danger > ul {
@@ -11227,7 +11223,7 @@ a.text-dark:focus {
 
 .row-quarter {
   height: 50px;
-  widows: 100px;
+  width: 100px;
 }
 
 .full-row-holder {
@@ -11252,5 +11248,66 @@ a.text-dark:focus {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
           flex-direction: column;
+}
+
+.animals-card {
+  padding: 20px;
+  margin: auto;
+  margin-top: 25px;
+}
+
+.add-animal {
+  margin: auto;
+  margin-top: 20px;
+}
+
+.custom-table {
+  display: inline-block;
+}
+
+.custom-table-holder {
+  text-align: center;
+}
+
+.table-row {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+}
+
+.table-column {
+  border: 1px solid black;
+  padding: 0 4px;
+  width: 110px;
+  min-width: 110px;
+}
+
+.table-head {
+  display: -webkit-box;
+  display: flex;
+}
+
+.table-head .table-column {
+  font-weight: bold;
+}
+
+.table-column {
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: flex;
+}
+
+.animals-card h4 {
+  text-align: center;
+}
+
+.nav-text {
+  font-size: 16px;
+  margin-right: 10px;
 }
 

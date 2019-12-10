@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Izmeni vlasnika {{$owner->first_name}}</h1>
+<div class="container">
+    <h1 class="text-center">Izmeni vlasnika</h1>
 
     <form method="POST" action="{{route('owners.update', $owner->id)}}">
         @csrf
@@ -45,5 +46,5 @@
         @method('DELETE')
         <button type="submit" class="btn btn-danger custom-delete">Obrisi</button>
     </form>
-
+</div>
 @endsection

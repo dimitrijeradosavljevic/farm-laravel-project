@@ -101,7 +101,30 @@
                 </div>
 
             @endif
+
         </div>
+        {{--Matings without birth--}}
+
     </div>
 
 @endforeach
+
+@if($matings->count() > 0)
+<div class="custom-table">
+    <div class="sub-table-title"><a href="{{route('matings.index', $animal->id)}}">Pripust</a></div>
+
+    <div class="sub-table-body">
+        @foreach($matings as $mating)
+            <div class="col-pair">
+                <span class="custom-col custom-col-head"><span>Datum</span></span>
+                <span class="custom-col">{{$mating->date}}</span>
+            </div>
+            <div class="col-pair">
+                <span class="custom-col custom-col-head"><span>Nerast</span></span>
+                <span class="custom-col"><a href="{{route('animals.show', $mating->male_id)}}">{{$animal->matings->where('id', $mating->male_id)->first()->id_number}}</a></span>
+            </div>
+
+        @endforeach
+    </div>
+</div>
+@endif

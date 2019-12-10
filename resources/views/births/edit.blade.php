@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-	    <h1 class="text-center">Ovde mozete promeniti prasenja</h1>
+<div class="container">
+	    <h1 class="text-center">Promeni prasenja</h1>
 
         @include('partials.errors')
         @include('partials.sessions')
@@ -74,4 +75,6 @@
             </form>
 		@endforeach
 
+        <a class="btn btn-primary mt-5" href="{{route('animals.show', $animal->id)}}">Nazad</a>
+</div>
 @endsection

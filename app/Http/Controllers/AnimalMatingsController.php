@@ -13,7 +13,7 @@ class AnimalMatingsController extends Controller
 
     public function index(Animal $animal)
     {
-        $this->authorize('modify', $animal);
+        $this->authorize('view', $animal);
 
         $matings = $animal->matings;
 
@@ -22,7 +22,7 @@ class AnimalMatingsController extends Controller
 
     public function create(Animal $animal)
     {
-        $this->authorize('modify', $animal);
+        $this->authorize('create', $animal);
 
         return view('matings.create', compact('animal'));
     }
@@ -31,7 +31,7 @@ class AnimalMatingsController extends Controller
     public function store(Request $request, Animal $animal)
     {
 
-        $this->authorize('modify', $animal);
+        $this->authorize('create', $animal);
 
     	$request->validate([
     		'date' => ['required', 'date'],
@@ -41,29 +41,25 @@ class AnimalMatingsController extends Controller
 
     	$attributes['date'] = $request->date;
 
-
-    	$birth = Birth::findBirth($request->birth_certificate);
-    	if($birth){
-    	    $attributes['birth_id'] = $birth;
-        }else{
-    	    session()->flash('error', 'Nije pronadjeno rodjenje sa cerifikatom koji ste uneli. Zbog toga ce polje ostati prazno, mozete ga naknadno promeniti');
+        if(!empty($request->birth_certificate)){
+            $birth = Birth::findByCertificate($request->birth_certificate);
+            if($birth){
+                $attributes['birth_id'] = $birth->id;
+            }else{
+                session()->flash('warning', 'Nije pronadjeno rodjenje sa cerifikatom koji ste uneli. Zbog toga ce polje ostati prazno, mozete ga naknadno promeniti');
+            }
         }
 
-
         $partner = Mating::findPartner($request->partner_id);
-        if($partner){
-    	   $created = $animal->matings()->attach($partner, $attributes);
+
+        if($partner['id']){
+    	   $animal->matings()->attach($partner['id'], $attributes);
         }else{
             session()->flash('error', 'Nije pronadjena zivotinja sa ID Brojem koji ste uneli, molimo vas proverite ID Broj ponovo');
             return redirect(route('animals.show', $animal->id));
         }
 
-        //Check if creation was successful
-        if($created) {
-            session()->flash('success', 'Uspesno ste dodali pripust');
-        }else{
-            session()->flash('error', 'Pripust nije dodat, doslo je do greske');
-        }
+        session()->flash('success', 'Uspesno ste dodali pripust');
 
         return redirect(route('animals.show', $animal->id));
     }
@@ -71,7 +67,7 @@ class AnimalMatingsController extends Controller
 
     public function edit(Animal $animal)
     {
-    	$this->authorize('modify', $animal);
+    	$this->authorize('update', $animal);
 
     	$mates = $animal->matings;
 
@@ -82,7 +78,7 @@ class AnimalMatingsController extends Controller
 
     public function update(Request $request, Animal $animal, Mating $mating)
     {
-        $this->authorize('modify', $animal);
+        $this->authorize('update', $animal);
 
         $request->validate([
             'date' => ['required', 'date'],
@@ -92,11 +88,13 @@ class AnimalMatingsController extends Controller
 
         $attributes['date'] = $request->date;
 
-        $birth = Birth::findBirth($request->birth_certificate);
-        if($birth){
-            $attributes['birth_id'] = $birth;
-        }else{
-            session()->flash('error', 'Nije pronadjeno rodjenje sa cerifikatom koji ste uneli. Zbog toga ce polje ostati prazno, mozete ga naknadno promeniti');
+        if(!empty($request->birth_certificate)){
+            $birth = Birth::findByCertificate($request->birth_certificate);
+            if($birth){
+                $attributes['birth_id'] = $birth->id;
+            }else{
+                session()->flash('warning', 'Nije pronadjeno rodjenje sa cerifikatom koji ste uneli. Zbog toga ce polje ostati prazno, mozete ga naknadno promeniti');
+            }
         }
 
 
@@ -121,7 +119,7 @@ class AnimalMatingsController extends Controller
 
     public function destroy(Animal $animal, Mating $mating)
     {
-        $this->authorize('modify', $animal);
+        $this->authorize('delete', $animal);
 
         $deleted = $mating->delete();
 

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Species extends Model
+class Specie extends Model
 {
     protected $guarded = [];
 
@@ -17,4 +17,5 @@ class Species extends Model
     {
     	return $this->hasManyThrough(Animal::class, Breed::class);
     }
+
 }

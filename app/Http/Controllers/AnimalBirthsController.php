@@ -11,14 +11,14 @@ class AnimalBirthsController extends Controller
 
     public function index(Animal $animal)
     {
-        $this->authorize('modify', $animal);
+        $this->authorize('view', $animal);
 
         return view('births.index', compact('animal'));
     }
 
     public function create(Animal $animal)
     {
-        $this->authorize('modify', $animal);
+        $this->authorize('create', $animal);
 
         //If the animal is male, don't allow access
         if($animal->gender !== 0){
@@ -57,7 +57,7 @@ class AnimalBirthsController extends Controller
 
     public function edit(Animal $animal)
     {
-        $this->authorize('modify', $animal);
+        $this->authorize('update', $animal);
 
         //If the animal is male, don't allow access
         if($animal->gender !== 0){
@@ -69,7 +69,7 @@ class AnimalBirthsController extends Controller
 
     public function update(Request $request, Animal $animal, Birth $birth)
     {
-        $this->authorize('modify', $animal);
+        $this->authorize('update', $animal);
 
         $attributes = $request->validate([
             'date' => ['required', 'date'],
@@ -96,7 +96,7 @@ class AnimalBirthsController extends Controller
 
     public function destroy(Animal $animal, Birth $birth)
     {
-        $this->authorize('modify', $animal);
+        $this->authorize('delete', $animal);
 
         $deleted = $birth->delete();
 

@@ -12,7 +12,7 @@ class AnimalExclusionsController extends Controller
 
     public function index(Animal $animal)
     {
-        $this->authorize('modify', $animal);
+        $this->authorize('view', $animal);
 
         $exclusions = $animal->exclusions->load('birth');
         return view('exclusions.index', compact('exclusions', 'animal'));
@@ -21,7 +21,7 @@ class AnimalExclusionsController extends Controller
     public function create(Animal $animal)
     {
 
-        $this->authorize('modify', $animal);
+        $this->authorize('create', $animal);
 
         //If the animal is male, don't allow access
         if($animal->gender !== 0){
@@ -33,7 +33,7 @@ class AnimalExclusionsController extends Controller
 
     public function store(Request $request, Animal $animal)
     {
-        $this->authorize('modify', $animal);
+        $this->authorize('create', $animal);
 
     	$request->validate([
     		'date' => ['required', 'date'],
@@ -51,11 +51,11 @@ class AnimalExclusionsController extends Controller
 
     	//Find birth based on certificate
     	if($request->has('birth_certificate')){
-    		$birth = Birth::findBirth($request->birth_certificate);
+    		$birth = Birth::findByCertificate($request->birth_certificate);
     	    if($birth){
-                $attributes['birth_id'] = $birth;
+                $attributes['birth_id'] = $birth->id;
             }else{
-    	        session()->flash('error', 'Nije pronadjeno rodjenje sa cerifikatom koji ste uneli.');
+    	        session()->flash('warning', 'Nije pronadjeno rodjenje sa cerifikatom koji ste uneli.');
     	        return redirect()->back();
 
             }
@@ -74,7 +74,7 @@ class AnimalExclusionsController extends Controller
 
     public function edit(Animal $animal)
     {
-        $this->authorize('modify', $animal);
+        $this->authorize('update', $animal);
 
         //If the animal is male, don't allow access
         if($animal->gender !== 0){
@@ -88,7 +88,7 @@ class AnimalExclusionsController extends Controller
 
     public function update(Request $request, Animal $animal, Exclusion $exclusion)
     {
-        $this->authorize('modify', $animal);
+        $this->authorize('update', $animal);
 
         $request->validate([
             'date' => ['required', 'date'],
@@ -106,12 +106,12 @@ class AnimalExclusionsController extends Controller
 
         //Find birth based on certificate
         if($request->has('birth_certificate')){
-            $birth = Birth::findBirth($request->birth_certificate);
+            $birth = Birth::findByCertificate($request->birth_certificate);
         }
         if($birth){
-            $attributes['birth_id'] = $birth;
+            $attributes['birth_id'] = $birth->id;
         }else{
-            session()->flash('error', 'Nije pronadjeno rodjenje sa cerifikatom koji ste uneli. Zbog toga ce polje ostati prazno, mozete ga naknadno promeniti');
+            session()->flash('warning', 'Nije pronadjeno rodjenje sa cerifikatom koji ste uneli. Zbog toga ce polje ostati prazno, mozete ga naknadno promeniti');
         }
         $updated = $exclusion->update($attributes);
 
@@ -126,7 +126,7 @@ class AnimalExclusionsController extends Controller
 
     public function destroy(Animal $animal, Exclusion $exclusion)
     {
-        $this->authorize('modify', $animal);
+        $this->authorize('delete', $animal);
 
         $deleted = $exclusion->delete();
 

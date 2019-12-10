@@ -1,190 +1,149 @@
 @extends('layouts.app')
 
-
 @section('content')
+    <div class="container">
 
-	{{session(['animal_not_found', 'birth_not_found'])}}
+        @include('partials.errors')
+        @include('partials.sessions')
 
-    <div class="mating-form mb-4">
-		<h3 class="text-center">Unesi pripust</h3>
-		<form method="POST" action="{{route('matings.store', $animal->id)}}">
-			@csrf
-			<div class="row">
+        <form method="POST" action="{{route('animals.update', [$owner->id, $animal->id])}}">
+            @csrf
+            @method('PATCH')
+            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="date">Datum pripusta:</label>
-                        <input type="date" name="date" class="form-control">
+                        <label>ID broj:</label>
+                        <input type="number" class="form-control" name="id_number" value="{{$animal->id_number}}">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="partner_id">Id broj partnera pripusta:</label>
-                        <input type="number" name="partner_id" class="form-control">
+                        <label>Identifikacioni broj:</label>
+                        <input type="number" class="form-control" name="identification_number" value="{{$animal->identification_number}}">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Certifikat prasenja</label>
-                        <input type="text" name="birth_certificate" class="form-control birth-certificate">
-                        <div class="alert alert-warning">
-                            <span>Unesite ovo polje samo ukoliko zelite da povezete pripust sa prasenjem</span>
-                        </div>
+                        <label for="hb">HB:</label>
+                        <input type="text" class="form-control" name="hb"  value="{{$animal->hb}}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>RB:</label>
+                        <input type="text" class="form-control" name="rb"  value="{{$animal->rb}}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Datum rodjenja:</label>
+                        <input type="date" class="form-control" name="birth_day" value="{{$animal->birth_day}}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Vrsta:</label>
+                        <select name="breed_id" class="form-control">
+                            @foreach($breeds as $breed)
+                                <option value="{{$breed->name}}" {{$breed->id==$animal->breed_id ? 'selected' : ''}}>{{$breed->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <p class="mb-2">Pol:</p>
+                        <label class="radio-inline"><input type="radio" name="gender" value="1" {{$animal->gender ? 'checked' : ''}}>Musko</label>
+                        <label class="radio-inline"><input type="radio" name="gender" value="0" {{!$animal->gender ? 'checked' : ''}}>Zensko</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Uzrast pri prvom pripustu(dani)</label>
+                        <input type="number" class="form-control" name="days_in_first_mating" value="{{$animal->days_in_first_mating}}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Vrsta Rodjenja</label>
+                        <input type="text" class="form-control" name="birth_type" value="{{$animal->birth_type}}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Broj sisa L</label>
+                        <input type="number" class="form-control" name="left_tits" value="{{$animal->left_tits}}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Broj sisa D</label>
+                        <input type="number" class="form-control" name="right_tits" value="{{$animal->right_tits}}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Selekcijski broj</label>
+                        <input type="text" class="form-control" name="selection_mark" value="{{$animal->selection_mark}}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="from-group">
+                        <label>Registracioni Broj</label>
+                        <input type="number" class="form-control" name="registration_number" value="{{$animal->registration_number}}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Tetovar</label>
+                        <input type="number" class="form-control" name="tattoo_number" value="{{$animal->tattoo_number}}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Datum iskljucenja</label>
+                        <input type="date" class="form-control" name="exclusion_date" value="{{$animal->exclusion_date}}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Razlog iskljucenja</label>
+                        <input type="text" class="form-control" name="exclusion_reason" value="{{$animal->exclusion_reason}}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>ID broj oca</label>
+                        <input type="number" class="form-control" name="id_father" value="{{$animal->getFather()}}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>ID broj majke</label>
+                        <input type="number" class="form-control" name="id_mother" value="{{$animal->getMother()}}">
                     </div>
                 </div>
             </div>
 
-			<button type="submit" class="btn btn-primary">Unesi</button>
-		</form>
-	</div>
+            <button type="submit" class="btn btn-primary">Unesi</button>
+        </form>
 
-
-	{{-- Display the form based on gender (when its added to the animals table) --}}
-	<div class="row">
-        <div class="col-md-6">
-            <div class="birth-form">
-                <h3 class="text-center">Unesi Prasenje</h3>
-                <form method="POST" action="{{route('births.store', $animal->id)}}">
-                    @csrf
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="date">Datum prasenja:</label>
-                                <input type="date" name="date" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="birth_number">Red prasenja:</label>
-                                <input type="number" name="birth_number" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="males">Zivorodjenih muskih:</label>
-                                <input type="number" name="males" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="females">Zivorodjenih zenski:</label>
-                                <input type="number" name="females" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="passed">Mrtvo:</label>
-                                <input type="number" name="passed" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="mummified">Mumificirano:</label>
-                                <input type="number" name="mummified" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="birth_certificate">Certifikat prasenja</label>
-                                <input type="number" name="birth_certificate" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Unesi</button>
-
-                </form>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <h3 class="text-center">Unesi zalucenje</h3>
-            <div class="exclusion-form">
-                <form method="POST" action="{{route('exclusions.store', $animal->id)}}">
-                    @csrf
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="date">Datum zalucenja:</label>
-                                <input type="date" name="date" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="days_old">Sa dana:</label>
-                                <input type="number" name="days_old" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="animals_count">Prasadi:</label>
-                                <input type="number" name="animals_count" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="litter_weight">Masa legla(kg):</label>
-                                <input type="number" name="litter_weight" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="litter_mark">Ocena legla:</label>
-                                <input type="number" name="litter_mark" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="mother_mark">Ocena krmace:</label>
-                                <input type="number" name="mother_mark" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="males_for_breeding">Odabrano za priplod M:</label>
-                                <input type="number" name="males_for_breeding" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="females_for_breeding">Odabrano za priplod Z:</label>
-                                <input type="number" name="females_for_breeding" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="birth_certificate">Certifikat prasenja:</label>
-                                <input type="number" name="birth_certificate" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Unesi</button>
-                </form>
-            </div>
-        </div>
+        <form method="POST" action="{{route('animals.destroy', $animal->id)}}">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-danger custom-delete">Obrisi</button>
+        </form>
+        <a class="btn btn-primary" href="{{route('animals.show', $animal->id)}}">Nazad</a>
     </div>
 
-	@include('partials.errors')
 @endsection

@@ -66,15 +66,12 @@
 
 .links-holder {
     text-align: center;
-    margin: 20px 0;
 }
 
-.main-nav {
-    //position: absolute;
-    width: 100%;
-    padding: 30px 0;
-    background-color: rgba(0, 0, 0, 0.3);
+.links-holder a {
+    margin-bottom: 20px;
 }
+
 
 .front-page-image {
     width: 100%;
@@ -88,8 +85,8 @@
     height: 100px;
 }
 
-.main-nav > a {
-    color: #fff;
+.main-nav ul {
+    list-style: none;
 }
 
 .alert-danger > ul {
@@ -136,4 +133,58 @@
 .quarter-row-holder {
     display: flex;
     flex-direction: column;
+}
+
+.animals-card {
+    padding: 20px;
+    margin: auto;
+    margin-top: 25px;
+}
+
+.add-animal {
+    margin: auto;
+    margin-top: 20px;
+}
+
+.custom-table {
+    display: inline-block;
+}
+
+.custom-table-holder {
+    text-align: center;
+}
+
+.table-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.table-column {
+    border: 1px solid black;
+    padding: 0 4px;
+    width: 110px;
+    min-width: 110px;
+}
+
+.table-head {
+    display: flex;
+}
+
+.table-head .table-column {
+    font-weight: bold;
+}
+
+.table-column {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.animals-card h4 {
+    text-align: center;
+}
+
+.nav-text {
+    font-size: 16px;
+    margin-right: 10px;
 }

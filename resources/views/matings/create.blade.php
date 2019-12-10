@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+<div class="container">
     <h1 class="text-center">Dodaj pripust</h1>
 
         @include('partials.errors')
@@ -37,4 +37,7 @@
         </div>
         <button class="btn btn-primary">Unesi</button>
     </form>
+
+    <a class="btn btn-primary mt-5" href="{{route('animals.show', $animal->id)}}">Nazad</a>
+</div>
 @endsection

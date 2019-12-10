@@ -22,14 +22,18 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/owners/create', 'OwnersController@create')->name('owners.create');
     Route::post('/owners', 'OwnersController@store')->name('owners.store');
-    Route::get('/owners/{owner}', 'OwnersController@edit')->name('owners.edit');
+    Route::get('/owners/{owner}/edit', 'OwnersController@edit')->name('owners.edit');
     Route::patch('/owners/{owner}', 'OwnersController@update')->name('owners.update');
     Route::delete('/owners/{owner}', 'OwnersController@destroy')->name('owners.destroy');
+    Route::get('/owners/{owner}/animals', 'OwnersController@animals')->name('owners.animals');
 
 
-    Route::get('/animals/create', 'AnimalsController@create')->name('animals.create');
+    Route::get('/owners/{owner}/animals/create', 'AnimalsController@create')->name('animals.create');
+    Route::post('/owners/{owner}/animals', 'Animalscontroller@store')->name('animals.store');
     Route::get('/animals/{animal}', 'AnimalsController@show')->name('animals.show');
-    Route::get('/animals/{animal}/edit', 'AnimalsController@edit')->name('animals.edit');
+    Route::get('/owners/{owner}/animals/{animal}/edit', 'AnimalsController@edit')->name('animals.edit');
+    Route::patch('/owners/{owner}/animals/{animal}', 'AnimalsController@update')->name('animals.update');
+    Route::delete('/animals/{animal}', 'AnimalsController@destroy')->name('animals.destroy');
 
 
     Route::get('/animals/{animal}/matings', 'AnimalMatingsController@index')->name('matings.index');

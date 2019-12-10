@@ -37,6 +37,10 @@
                         <span class="custom-col custom-col-head">Ukupno Prasadi</span>
                         <span class="custom-col">{{$birth->males + $birth->females}}</span>
                     </div>
+                    <div class="col-pair">
+                        <span class="custom-col custom-col-head">Certifikat rodjenja</span>
+                        <span class="custom-col">{{$birth->birth_certificate}}</span>
+                    </div>
                 </div>
 
             @endforeach

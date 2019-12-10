@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-
-    <h1>Dodajte vlasnika</h1>
+<div class="container">
+    <h1 class="text-center">Dodaj vlasnika</h1>
 
     <form method="POST" action="{{route('owners.store')}}">
         @csrf
@@ -38,5 +38,5 @@
 
         <button type="submit" class="btn btn-primary">Unesi</button>
     </form>
-
+</div>
 @endsection
